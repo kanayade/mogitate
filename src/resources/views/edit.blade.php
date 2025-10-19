@@ -3,13 +3,15 @@
 @section('content')
 <div class="edit_container">
     <a href="/products">商品一覧</a>
-    <h3 class="fruits_name">>{{ $product->name }}</h3>
-    <form class="edit_form" action="/products" method="post" enctype="multipart/form-data">
+    <h3 class="fruits_name">{{ $product->name }}</h3>
+    <form class="edit_form" action="{{ url('/products/' . $product->id .'/update') }}" method="post" enctype="multipart/form-data">
+        @csrf
         <div class="fruits_detail">
             <div class="fruits_image">
-                <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}">
+                <img src="{{ asset('storage/app/public/image' . $product->image) }}" alt="{{ $product->name }}">
                 <form action="products/update" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('post')
                     <input type="file" name="image">
             </div>
             <div class="form__group">
@@ -22,11 +24,11 @@
                     <input type="number" name="price" value="{{ old('price',$product->price) }}">
                 </div>
                 <div class="form__label--title">
-                    <label class="season">季節</label><br>
+                    <label class="season">季節</label>
                     @foreach(['春','夏','秋','冬'] as $season)
                     <label>
                     <input type="chechbox" name="season[]" value="{{ $season }}"
-                    {{ in_arry($season,json_decode($product->season ?? '[]')) ? 'checked' : ''}}> {{ $season }}</label>
+                    {{ in_array($season,json_decode($product->season ?? '[]')) ? 'checked' : ''}}> {{ $season }}</label>
                     @endforeach
                 </div>
                 <div class="form__label--title">
@@ -37,7 +39,13 @@
         </div>
         <div class="edit__button">
             <a href="/products">戻る</a>
-            <button class="edit__button--entry" type="submit">変更を保存</button>
+            <button class="edit__button--keep" type="submit">変更を保存</button>
         </div>
     </form>
-    <form class="delete_form" action="
+    <form class="delete_form" action="/products" method="post">
+        @csrf
+        @method('delete')
+        <button class="delete__button" type="submit">削除</button>
+    </form>
+</div>
+@endsection

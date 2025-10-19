@@ -10,7 +10,7 @@
         <div class="sidebar-title">
             <h2>商品一覧</h2>
         </div>
-        <form action="products/search" method="get">
+        <form action="products/search" method="get" enctype="multipart/form-data">
         <input type="text" placeholder="商品名で検索"><br><br>
         <button class="search-btn">検索</button><br><br>
         <label>価格順で表示</label><br>
@@ -25,9 +25,11 @@
     </div>
     @foreach ($products as $product)
     <div class="fruits-products">
-        <img src="{{ asset('image/' . $product->image) }}">
-        <h2>{{ $product->name }}</h2>
-        <p>¥{{ number_format($product->price) }}</p>
+        <a href="{{ url('/products/' . $product->id) }}">
+            <img src="{{ asset('storage/app/public/image' . $product->image) }}" alt="商品画像">
+        </a>
+            <h2>{{ $product->name }}</h2>
+            <p>¥{{ number_format($product->price) }}</p>
     </div>
     @endforeach
     <div class="pagenation">
