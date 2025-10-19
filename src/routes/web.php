@@ -17,10 +17,13 @@ use App\Http\Controllers\ProductController;
 Route::get('/products',[ProductController::class,'index']);
 // 商品登録
 Route::get('/register',[ProductController::class,'add']);
-Route::post('/register',[ProductController::class,'create']);
+Route::post('/register',[ProductController::class,'store']);
 // 商品検索
 // Route::get('/products',[ProductController::class,'search']);
+
 // 商品詳細
-Route::get('/products/{productId}',[ProductController::class,'edit']);
+// Route::get('/products/{productId}',[ProductController::class,'edit']);
 // 商品更新
-Route::post('/products/{productId}/update',[ProductController::class,'update']);
+// Route::post('/products/{productId}/update',[ProductController::class,'update']);
+// 削除処理
+// Route::delete('/products/{productsId}',[ProductController::class,'destroy']);

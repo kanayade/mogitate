@@ -17,10 +17,45 @@ class ProductController extends Controller
     {
         return view('register');
     }
-    public function create(ProductRequest $request)
+    public function store(ProductRequest $request)
     {
         $form = $request->all();
-        Product::create($form);
+        $path = null;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+        }
+        Product::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+            'image' => $path,
+        ]);
         return redirect('/products');
     }
+    // public function edit($id)
+    // {
+    //     $product = Product::findOrFail($id);
+    //     return view('edit',compact('product'));
+    // }
+    // public function update(ProductRequest $request,$id)
+    // {
+    //     $product = Product::findOrFail($id);
+    //     if ($request->hasFile('image')) {
+    //         $path = $request->file('image')->store('products', 'public');
+    //         $product->image_path = $path;
+    //     }
+    //     $product->name = $request->name;
+    //     $product->price = $request->price;
+    //     $product->description = $request->description;
+    //     $product->season = json_encode($request->season ?? [] );
+    //     $product->save();
+
+    //     return redirect('/products');
+    // }
+    // public function destroy($id)
+    // {
+    //     $product = Product::findOrFail($id);
+    //     $product->delete();
+    //     return redirect('/products');
+    // }
 }

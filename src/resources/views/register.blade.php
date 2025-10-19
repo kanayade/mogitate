@@ -9,7 +9,7 @@
     <div class="register-form__heading">
         <h2>商品登録</h2>
     </div>
-    <form class="form" action="/products" method="post">
+    <form class="form" action="/products" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form__group">
             <div class="form__label--title">
@@ -32,7 +32,7 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="integer" name="price" placeholder="値段を入力" value="{{ old('price') }}">
+                    <input type="number" name="price" placeholder="値段を入力" value="{{ old('price') }}">
                 </div>
                 <div class="form__error">
                     @error('price')
@@ -45,7 +45,7 @@
                 <span class="form__label--required">必須</span>
             </div>
             <div class="form__group-content">
-                <div class="form__input--text">
+                <div class="form__input--file">
                     <input type="file" name="image" accept="image/*">
                 </div>
                 <div class="form__error">
@@ -60,18 +60,18 @@
                 <span class="form__label--select">複数選択可</span>
             </div>
             <div class="form__group-content">
-                <div class="form__input--radio">
+                <div class="form__input--checkbox">
                     <label>
-                    <input type="radio" name="name" value="spring">春
+                    <input type="checkbox" name="season" value="spring">春
                     </label>
                     <label>
-                        <input type="radio" name="name" value="summer">夏
+                        <input type="checkbox" name="season" value="summer">夏
                     </label>
                     <label>
-                        <input type="radio" name="name" value="autumn">秋
+                        <input type="checkbox" name="season" value="autumn">秋
                     </label>
                     <label>
-                        <input type="radio" name="name" value="winter">冬
+                        <input type="checkbox" name="season" value="winter">冬
                     </label>
                 </div>
                 <div class="form__error">
@@ -86,7 +86,7 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="description" placeholder="商品の説明を入力" value="{{ old('description') }}">
+                    <textarea name="description" placeholder="商品の説明を入力">{{ old('description') }}</textarea>
                 </div>
                 <div class="form__error">
                     @error('description')
@@ -96,8 +96,8 @@
             </div>
         </div>
         <div class="form__button">
-            <button class="form__button--return" type="submit" name="return">戻る</button>
-            <button class="form__button--entry" type="submit" name="send">登録</button>
+            <a href="/products">戻る</a>
+            <button class="form__button--entry" type="submit">登録</button>
         </div>
     </form>
 </div>
