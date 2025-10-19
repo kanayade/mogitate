@@ -9,7 +9,7 @@
     <div class="register-form__heading">
         <h2>商品登録</h2>
     </div>
-    <form class="form" action="/products" method="post" enctype="multipart/form-data">
+    <form class="form" action="/register" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form__group">
             <div class="form__label--title">
@@ -46,7 +46,7 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--file">
-                    <input type="file" name="image" accept="image/*">
+                    <input type="file" name="image">
                 </div>
                 <div class="form__error">
                     @error('image')
@@ -61,17 +61,20 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--checkbox">
+                    @php
+                    $selectedSeasons = old('seasons', isset($product) ? $product->seasons->pluck('id')->toArray() : []);
+                    @endphp
                     <label>
-                    <input type="checkbox" name="season" value="spring">春
+                    <input type="checkbox" name="season[]" value="1">春
                     </label>
                     <label>
-                        <input type="checkbox" name="season" value="summer">夏
+                        <input type="checkbox" name="season[]" value="2">夏
                     </label>
                     <label>
-                        <input type="checkbox" name="season" value="autumn">秋
+                        <input type="checkbox" name="season[]" value="3">秋
                     </label>
                     <label>
-                        <input type="checkbox" name="season" value="winter">冬
+                        <input type="checkbox" name="season[]" value="4">冬
                     </label>
                 </div>
                 <div class="form__error">

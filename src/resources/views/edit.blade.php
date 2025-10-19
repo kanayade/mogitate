@@ -25,10 +25,10 @@
                 </div>
                 <div class="form__label--title">
                     <label class="season">季節</label>
-                    @foreach(['春','夏','秋','冬'] as $season)
+                    @foreach(['春','夏','秋','冬'] as $id => $season)
                     <label>
-                    <input type="chechbox" name="season[]" value="{{ $season }}"
-                    {{ in_array($season,json_decode($product->season ?? '[]')) ? 'checked' : ''}}> {{ $season }}</label>
+                    <input type="checkbox" name="season[]" value="{{ $id + 1 }}"
+                    {{-- in_array($id + 1, $selectedSeasons) ? 'checked' : '' --}}> {{ $season }}</label>
                     @endforeach
                 </div>
                 <div class="form__label--title">

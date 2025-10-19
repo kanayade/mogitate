@@ -23,19 +23,21 @@ class ProductController extends Controller
         $form = $request->all();
         $path = null;
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public', 'product');
+            $path = $request->file('image')->store('product','public');
         }
-        Product::create([
+        $p = Product::create([
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
             'image' => $path,
         ]);
+        dd($p);
         return redirect('/products');
     }
     public function edit($productId)
     {
-        $product = Product::find($productId);
+        $product = Product::with('seasons')->find($productId);
+        dd($product);
         return view('edit',compact('product'));
     }
     public function update(UpdateRequest $request, $productId)
