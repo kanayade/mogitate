@@ -61,11 +61,8 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--checkbox">
-                    @php
-                    $selectedSeasons = old('seasons', isset($product) ? $product->seasons->pluck('id')->toArray() : []);
-                    @endphp
                     <label>
-                    <input type="checkbox" name="season[]" value="1">春
+                        <input type="checkbox" name="season[]" value="1">春
                     </label>
                     <label>
                         <input type="checkbox" name="season[]" value="2">夏

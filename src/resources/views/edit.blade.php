@@ -25,10 +25,22 @@
                 </div>
                 <div class="form__label--title">
                     <label class="season">季節</label>
+                    <label>
+                        <input type="checkbox" name="season[]" value="{{ old('season',$product->season) }}">春
+                    </label>
+                    <label>
+                        <input type="checkbox" name="season[]" value="{{ old('season',$product->season) }}">夏
+                    </label>
+                    <label>
+                        <input type="checkbox" name="season[]" value="{{ old('season',$product->season) }}">秋
+                    </label>
+                    <label>
+                        <input type="checkbox" name="season[]" value="{{ old('season',$product->season) }}">冬
+                    </label>
                 </div>
                 <div class="form__label--title">
                     <label class="fruits_info">商品説明</label>
-                    <textarea name="description">{{ old('description',$product->description) }}"</textarea>
+                    <textarea name="description">{{ old('description',$product->description) }}</textarea>
                 </div>
             </div>
         </div>

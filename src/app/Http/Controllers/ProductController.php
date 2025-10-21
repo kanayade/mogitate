@@ -31,13 +31,12 @@ class ProductController extends Controller
             'description' => $request->description,
             'image' => $path,
         ]);
-        dd($p);
+        dd($season);
         return redirect('/products');
     }
     public function edit($productId)
     {
         $product = Product::with('seasons')->find($productId);
-        dd($product);
         return view('edit',compact('product'));
     }
     public function update(UpdateRequest $request, $productId)
