@@ -25,11 +25,6 @@
                 </div>
                 <div class="form__label--title">
                     <label class="season">季節</label>
-                    @foreach(['春','夏','秋','冬'] as $id => $season)
-                    <label>
-                    <input type="checkbox" name="season[]" value="{{ $id + 1 }}"
-                    {{-- in_array($id + 1, $selectedSeasons) ? 'checked' : '' --}}> {{ $season }}</label>
-                    @endforeach
                 </div>
                 <div class="form__label--title">
                     <label class="fruits_info">商品説明</label>
