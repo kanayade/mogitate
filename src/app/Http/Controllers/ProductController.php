@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Season;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\UpdateRequest;
 
@@ -14,10 +15,13 @@ class ProductController extends Controller
         $products = Product::paginate(6);
         return view('products',compact('products'));
     }
+
     public function add()
     {
-        return view('register');
+        $seasons = Season::all();
+        return view('register',compact('seasons'));
     }
+
     public function store(ProductRequest $request)
     {
         $form = $request->all();
@@ -25,20 +29,24 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('product','public');
         }
-        $p = Product::create([
+        $product = Product::create([
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
             'image' => $path,
         ]);
-        dd($season);
+        $product->seasons()->attach($request->seasons);
+        
         return redirect('/products');
     }
+
     public function edit($productId)
     {
         $product = Product::with('seasons')->find($productId);
-        return view('edit',compact('product'));
+        $seasons = Season::all();
+        return view('edit',compact('product','seasons'));
     }
+
     public function update(UpdateRequest $request, $productId)
     {
         $form = $request->all();

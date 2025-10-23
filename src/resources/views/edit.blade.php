@@ -8,7 +8,7 @@
         @csrf
         <div class="fruits_detail">
             <div class="fruits_image">
-                <img src="{{ asset('storage/app/public/image' . $product->image) }}" alt="{{ $product->name }}">
+                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                 <form action="products/update" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('post')
