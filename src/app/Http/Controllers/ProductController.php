@@ -35,8 +35,9 @@ class ProductController extends Controller
             'description' => $request->description,
             'image' => $path,
         ]);
-        $product->seasons()->attach($request->seasons);
-        
+        $season = Season::create([
+            'name' => $request->name
+        ]);
         return redirect('/products');
     }
 
