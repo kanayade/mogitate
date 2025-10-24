@@ -25,18 +25,14 @@
                 </div>
                 <div class="form__label--title">
                     <label class="season">季節</label>
+                    @foreach ($seasons as $season)
                     <label>
-                        <input type="checkbox" name="season[]" value="{{ old('season',$product->season) }}">春
+                        <input type="checkbox" name="seasons[]" value="{{ $season->id }}"
+                        @if ($product->seasons->contains('id',$season->id)) checked
+                        @endif >
+                        {{ $season->name }}
                     </label>
-                    <label>
-                        <input type="checkbox" name="season[]" value="{{ old('season',$product->season) }}">夏
-                    </label>
-                    <label>
-                        <input type="checkbox" name="season[]" value="{{ old('season',$product->season) }}">秋
-                    </label>
-                    <label>
-                        <input type="checkbox" name="season[]" value="{{ old('season',$product->season) }}">冬
-                    </label>
+                    @endforeach
                 </div>
                 <div class="form__label--title">
                     <label class="fruits_info">商品説明</label>
