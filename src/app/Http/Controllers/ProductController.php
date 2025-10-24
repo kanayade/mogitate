@@ -35,9 +35,6 @@ class ProductController extends Controller
             'description' => $request->description,
             'image' => $path,
         ]);
-        $season = Season::create([
-            'name' => $request->name
-        ]);
         return redirect('/products');
     }
 
@@ -50,9 +47,17 @@ class ProductController extends Controller
 
     public function update(UpdateRequest $request, $productId)
     {
-        $form = $request->all();
-        unset($form['_token']);
-        Product::find($productId)->update($form);
+        $product = Product::findOrFail($productId);
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description
+        ]);
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('product','public');
+            $product->update(['image' => $path]);
+        }
+        $product->seasons()->sync($request->seasons ?? []);
         return redirect('/products');
     }
 }
