@@ -26,7 +26,7 @@
     @foreach ($products as $product)
     <div class="fruits-products">
         <a href="{{ url('/products/' . $product->id) }}">
-            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+            <img src="{{ asset('storage/product/' . $product->image) }}" alt="{{ $product->name }}">
         </a>
             <h2>{{ $product->name }}</h2>
             <p>¥{{ number_format($product->price) }}</p>

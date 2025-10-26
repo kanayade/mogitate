@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Season;
@@ -26,14 +27,25 @@ class ProductController extends Controller
     {
         $form = $request->all();
         if ($request->hasFile('image')) {
-            $form['image']= $request->file('image')->store('product','public');
-        }
+        $filename = $request->file('image')->getClientOriginalName();
+        $request->file('image')->storeAs('product', $filename, 'public');
+    }
         $product = Product::create([
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
-            'image' => $request->image
+            'image' => $filename
         ]);
+        // $product->seasons()->attach($request->season);
+        foreach ($request->season as $c) {
+            DB::table('product_season')->insert([
+            'product_id' => $product->id,
+            'season_id' => $c,
+            'created_at' => now(),
+            'updated_at' => now()
+            ]);
+
+        };
         return redirect('/products');
     }
 
