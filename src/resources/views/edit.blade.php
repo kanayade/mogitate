@@ -6,12 +6,10 @@
     <h3 class="fruits_name">{{ $product->name }}</h3>
     <form class="edit_form" action="{{ url('/products/' . $product->id .'/update') }}" method="post" enctype="multipart/form-data">
         @csrf
+        @method('post')
         <div class="fruits_detail">
             <div class="fruits_image">
                 <img src="{{ asset('storage/product/' . $product->image) }}" alt="{{ $product->name }}">
-                <form action="products/update" method="post" enctype="multipart/form-data">
-                    @csrf
-                    @method('post')
                     <input type="file" name="image">
             </div>
             <div class="form__group">
@@ -44,11 +42,6 @@
             <a href="/products">戻る</a>
             <button class="edit__button--keep" type="submit">変更を保存</button>
         </div>
-    </form>
-    <form class="delete_form" action="/products" method="post">
-        @csrf
-        @method('delete')
-        <button class="delete__button" type="submit">削除</button>
     </form>
 </div>
 @endsection

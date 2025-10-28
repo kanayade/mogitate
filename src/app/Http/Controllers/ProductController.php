@@ -58,17 +58,20 @@ class ProductController extends Controller
 
     public function update(UpdateRequest $request, $productId)
     {
-        $product = Product::findOrFail($productId);
+        $product = Product::with('seasons')->find($productId);
         $product->update([
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description
         ]);
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('product','public');
-            $product->update(['image' => $path]);
+        if ($request->hasfail('image')) {
+            $filename = $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('product',$filename,'public');
+            $product->update(['image' => $filename]);
         }
-        $product->seasons()->sync($request->seasons ?? []);
+        if ($request->has('season')) {
+            $product->seasons()->sync($request->seasons);
+        }
         return redirect('/products');
     }
 }
