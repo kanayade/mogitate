@@ -69,9 +69,9 @@ class ProductController extends Controller
             $request->file('image')->storeAs('product',$filename,'public');
             $product->update(['image' => $filename]);
         }
-        if ($request->has('season')) {
-            $product->seasons()->sync($request->seasons);
-        }
-        return redirect('/products');
+        // if ($request->has('season')) {
+        //     $product->seasons()->sync($request->seasons);
+        // }
+        // return redirect('/products');
     }
 }
