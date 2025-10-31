@@ -64,7 +64,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'description' => $request->description
         ]);
-        if ($request->hasfail('image')) {
+        if ($request->hasfile('image')) {
             $filename = $request->file('image')->getClientOriginalName();
             $request->file('image')->storeAs('product',$filename,'public');
             $product->update(['image' => $filename]);
